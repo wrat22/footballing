@@ -6,12 +6,12 @@ CREATE TABLE leagues (
 
 CREATE TABLE teams (
     id INT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE players (
     id INT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE games (
