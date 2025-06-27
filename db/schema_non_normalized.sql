@@ -1,22 +1,22 @@
 CREATE TABLE leagues (
-    id INT PRIMARY KEY,
+    leagueID INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     understatNotation VARCHAR(100)
 );
 
 CREATE TABLE teams (
-    id INT PRIMARY KEY,
+    teamID INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE players (
-    id INT PRIMARY KEY,
+    playerID INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE games (
-    game_id INT PRIMARY KEY,
-    league_id INT,
+    gameID INT PRIMARY KEY,
+    leagueID INT,
     season VARCHAR(20),
     date DATE NOT NULL,
     homeTeamID INT,
@@ -49,15 +49,14 @@ CREATE TABLE games (
     PSCH DECIMAL(5,2),
     PSCD DECIMAL(5,2),
     PSCA DECIMAL(5,2),
-    FOREIGN KEY (homeTeamID) REFERENCES teams(id),
-    FOREIGN KEY (awayTeamID) REFERENCES teams(id),
-    FOREIGN KEY (league_id) REFERENCES leagues(id)
+    FOREIGN KEY (homeTeamID) REFERENCES teams(teamID),
+    FOREIGN KEY (awayTeamID) REFERENCES teams(teamID),
+    FOREIGN KEY (leagueID) REFERENCES leagues(leagueID)
 );
 
 CREATE TABLE appearances (
-    game_id INT,
-    player_id INT,
-    team_id INT,
+    gameID INT,
+    playerID INT,
     goals INT,
     ownGoals INT,
     shots INT,
@@ -74,15 +73,15 @@ CREATE TABLE appearances (
     timeOnPitch INT,
     substituteIn INT,
     substituteOut INT,
-    minutes_played INT,
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
-    FOREIGN KEY (player_id) REFERENCES players(id),
-    FOREIGN KEY (team_id) REFERENCES teams(id)
+    leagueID INT,
+    FOREIGN KEY (gameID) REFERENCES games(gameID),
+    FOREIGN KEY (playerID) REFERENCES players(playerID),
+    FOREIGN KEY (leagueID) REFERENCES leagues(leagueID)
 );
 
 CREATE TABLE teamstats (
-    game_id INT,
-    team_id INT,
+    gameID INT,
+    teamID INT,
     season VARCHAR(20),
     date DATE NOT NULL,
     location VARCHAR(10),
@@ -97,12 +96,12 @@ CREATE TABLE teamstats (
     yellowCards INT,
     redCards INT,
     result VARCHAR(10),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
-    FOREIGN KEY (team_id) REFERENCES teams(id)
+    FOREIGN KEY (gameID) REFERENCES games(gameID),
+    FOREIGN KEY (teamID) REFERENCES teams(teamID)
 );
 
 CREATE TABLE shots (
-    game_id INT,
+    gameID INT,
     shooterID INT,
     assisterID INT,
     minute INT,
@@ -113,7 +112,7 @@ CREATE TABLE shots (
     xGoal DECIMAL(4,3),
     positionX DECIMAL(5,2),
     positionY DECIMAL(5,2),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
-    FOREIGN KEY (shooterID) REFERENCES players(id),
-    FOREIGN KEY (assisterID) REFERENCES players(id)
+    FOREIGN KEY (gameID) REFERENCES games(gameID),
+    FOREIGN KEY (shooterID) REFERENCES players(playerID),
+    FOREIGN KEY (assisterID) REFERENCES players(playerID)
 );
